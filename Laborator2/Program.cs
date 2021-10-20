@@ -13,6 +13,7 @@ namespace Laborator2
 {
     class SimpleWindow : GameWindow
     {
+        float size = 0.1f;
         public SimpleWindow() : base(800, 600)
         {
             KeyDown += Keyboard_KeyDown;
@@ -28,6 +29,12 @@ namespace Laborator2
                     this.WindowState = WindowState.Normal;
                 else
                     this.WindowState = WindowState.Fullscreen;
+
+            if (e.Key == Key.W)
+                size += 0.1f;
+            if (e.Key == Key.S)
+                size -= 0.1f;
+            
         }
 
         protected override void OnLoad(EventArgs e)
@@ -53,15 +60,16 @@ namespace Laborator2
         {
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
-            GL.Begin(PrimitiveType.Triangles);
+            GL.Begin(PrimitiveType.Quads);
 
-            GL.Color3(Color.MidnightBlue);
-            GL.Vertex2(-1.0f, 1.0f);
-            GL.Color3(Color.SpringGreen);
-            GL.Vertex2(0.0f, -1.0f);
-            GL.Color3(Color.Ivory);
-            GL.Vertex2(1.0f, 1.0f);
-
+            GL.Color3(Color.DarkCyan);
+            GL.Vertex2(size, size);
+            GL.Color3(Color.ForestGreen);
+            GL.Vertex2(size, -size);
+            GL.Color3(Color.Honeydew);
+            GL.Vertex2(-size, -size);
+            GL.Color3(Color.Magenta);
+            GL.Vertex2(-size, size);
             GL.End();
 
             this.SwapBuffers();
